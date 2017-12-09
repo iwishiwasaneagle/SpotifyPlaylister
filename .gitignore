@@ -101,6 +101,5 @@ ENV/
 .mypy_cache/
 
 #My Shit
-.keys
-create_keys.py
+keys.py
 .cache-iwishiwasaneagle
