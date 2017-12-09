@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import spotipy.util as util
-import requests, time, json, shelve
+import requests, time, json, os
 
 
 username = 'iwishiwasaneagle'
 scope = 'playlist-modify-private playlist-modify-public user-library-read user-read-playback-state user-read-currently-playing'
 
-data = shelve.open(".keys")
-client_id = data['client_id']
-client_secret = data['client_secret']
-redirect_url = data['redirect_url']
+
+client_id = os.environ['SPOTIPI_CLIENT_ID']
+client_secret = os.environ['SPOTIPI_CLIENT_SECRET']
+redirect_url = os.environ['SPOTIPI_REDIRECT_URL']
 
 
 
