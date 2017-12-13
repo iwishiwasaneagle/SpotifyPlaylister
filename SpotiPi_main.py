@@ -4,7 +4,7 @@ import spotipy.util as util
 import requests, time, json, os, logging, sys, notify2, urllib
 import keys
 
-notify2.init("cunt")
+notify2.init("SpotiPi")
 logging.basicConfig(filename='SpotiPi_activity.log', level=logging.INFO, format='%(asctime)s %(message)s')
 username = 'iwishiwasaneagle'
 scope = 'playlist-modify-private playlist-modify-public user-library-read user-read-playback-state user-read-currently-playing'
