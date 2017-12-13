@@ -1,9 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import spotipy.util as util
-import requests, time, json, os, logging, sys
+import requests, time, json, os, logging, sys, notify2, urllib
 import keys
 
+notify2.init("cunt")
 logging.basicConfig(filename='SpotiPi_activity.log', level=logging.INFO, format='%(asctime)s %(message)s')
 username = 'iwishiwasaneagle'
 scope = 'playlist-modify-private playlist-modify-public user-library-read user-read-playback-state user-read-currently-playing'
@@ -16,13 +17,19 @@ token = util.prompt_for_user_token(username,scope,client_id=client_id,client_sec
 current='https://api.spotify.com/v1/me/player/currently-playing'
 playlists = 'https://api.spotify.com/v1/users/'+username+'/playlists'
 headers = {"Authorization" :  'Bearer '+str(token)}
-current = requests.get(current, headers=headers).json()
+current = requests.get(current, headers=headers)
+print current.text
+current=current.json()
 playlist = requests.get(playlists, headers=headers).json()
 
 current_song_uri = current["item"]["uri"]
+current_song_img = current["item"]["album"]["images"][2]["url"]
+print current_song_img
 current_song_name = current["item"]["name"]
+current_song_artist = current["item"]["artists"][0]["name"]
 monthly_playlist_name = str(time.strftime("%B%y")) #%B Locale’s full month name. %y Year without century as a decimal number [00,99].
-
+temp ="cache/"+str(time.strftime("%H%M_%d%m%y"))+".png"
+urllib.urlretrieve(current_song_img, temp)
 
 found = False
 for item in playlist["items"]:
@@ -33,7 +40,7 @@ for item in playlist["items"]:
 if not found:
     #create_playlist
     create_payload = {"name": monthly_playlist_name,
-                        "description":"Monthly playlist with my current favourite songs",
+                        "description":"Monthly playlist with my current favourite songs. Created with https://github.com/iwishiwasaneagle/Spotipi",
                         "public":"true"}
     create_url = 'https://api.spotify.com/v1/users/'+username+'/playlists/'
     create = requests.post(create_url, headers=headers, data=json.dumps(create_payload))
@@ -41,5 +48,7 @@ if not found:
     logging.info("Created playlist '%s'"%(monthly_playlist_name))
 
 addSongtoPlaylist = 'https://api.spotify.com/v1/users/'+username+'/playlists/'+monthly_playlist_uri+'/tracks?uris='+current_song_uri
-logging.info("Added song '%s' (%s) to ''%s'"%(current_song_name, current_song_uri, monthly_playlist_name))
+logging.info("Added song \"%s\" (%s) to %s'"%(current_song_name, current_song_uri, monthly_playlist_name))
+n = notify2.Notification("\"%s\" by %s added to \"%s\""%(current_song_name, current_song_artist, monthly_playlist_name), icon=temp)
+n.show()
 requests.post(addSongtoPlaylist, headers=headers)
