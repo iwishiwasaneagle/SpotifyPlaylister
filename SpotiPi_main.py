@@ -18,8 +18,10 @@ current='https://api.spotify.com/v1/me/player/currently-playing'
 playlists = 'https://api.spotify.com/v1/users/'+username+'/playlists'
 headers = {"Authorization" :  'Bearer '+str(token)}
 current = requests.get(current, headers=headers)
-print current.text
-current=current.json()
+if len(current.text)==0:
+    raise Exception("There is nothing currently playing")
+else:
+    current = current.json()
 playlist = requests.get(playlists, headers=headers).json()
 
 current_song_uri = current["item"]["uri"]
@@ -28,7 +30,12 @@ print current_song_img
 current_song_name = current["item"]["name"]
 current_song_artist = current["item"]["artists"][0]["name"]
 monthly_playlist_name = str(time.strftime("%B%y")) #%B Locale’s full month name. %y Year without century as a decimal number [00,99].
-temp ="cache/"+str(time.strftime("%H%M_%d%m%y"))+".png"
+cacheName="cache"
+if os.path.isdir(cacheName)==False:
+    os.makedirs(cacheName)
+    logging.info("%s created"%cacheName)
+
+temp = cacheName+"/"+str(time.strftime("%H%M_%d%m%y"))+".png"
 urllib.urlretrieve(current_song_img, temp)
 
 found = False
