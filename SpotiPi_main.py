@@ -77,7 +77,7 @@ if not exists:
         n = notify2.Notification("\"%s\" by %s added to \"%s\""%(current_song_name, current_song_artist, monthly_playlist_name), icon=filename_album_art_ico)
     except Exception:
         logging.error("Failed to add \"%s\" (%s) to %s'"%(current_song_name, current_song_uri, monthly_playlist_name))
-        n = notify2.Notification("Failed to add \"%s\" by %s added to \"%s\""%(current_song_name, current_song_artist, monthly_playlist_name), icon=filename_album_art_ico)
+        n = notify2.Notification("Failed to add \"%s\" by %s to \"%s\""%(current_song_name, current_song_artist, monthly_playlist_name), icon=filename_album_art_ico)
     n.show()
 else:
         logging.info("Song \"%s\" (%s) already in %s'"%(current_song_name, current_song_uri, monthly_playlist_name))
