@@ -104,3 +104,4 @@ ENV/
 keys.py
 .cache-iwishiwasaneagle
 *.png
+.ico
