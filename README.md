@@ -1,5 +1,3 @@
 # SpotifyPlaylister
 
-Keyboard shortcut script that automatically adds the currently playing song to a monthly playlist of the name format [MONTH][YEAR] such as December17.
-
-Goal: Android app that has a persistent notification when spotify is playing music that adds a song to a preselected playlist or a monthly playlist like above
+A tool that I created because I'm lazy. It allows me to add the currently playing spotify song to a monthly spotify playlist in the name format of [MONTH][YEAR] (i.e Dec17).
