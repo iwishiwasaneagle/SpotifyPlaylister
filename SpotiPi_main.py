@@ -29,7 +29,7 @@ current_song_name = current["item"]["name"]
 current_song_artist = current["item"]["artists"][0]["name"]
 monthly_playlist_name = str(time.strftime("%B%y")) #%B Locale’s full month name. %y Year without century as a decimal number [00,99].
 temp ="cache/"+str(time.strftime("%H%M_%d%m%y"))+".png"
-urllib.urlretrieve(current_song_img, temp)
+#urllib.urlretrieve(current_song_img, temp)
 
 found = False
 for item in playlist["items"]:
