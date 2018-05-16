@@ -1,3 +1,5 @@
-# Spotipi
+# SpotifyPlaylister
 
-Goal: Have a few buttons on my desk that add songs to playlists depending on what's being currently played
+Keyboard shortcut that automatically adds the currently playing song to a monthly playlist of the name format [MONTH][YEAR] such as December17.
+
+Goal: Android app that has a persistent notification when spotify is playing music that adds a song to a preselected playlist or a monthly playlist like above
